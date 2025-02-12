@@ -1,6 +1,4 @@
-Berikut adalah README dalam format **Markdown Cheatsheet**:
 
----
 
 # AR-webXR
 
