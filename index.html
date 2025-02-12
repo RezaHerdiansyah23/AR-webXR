@@ -25,10 +25,12 @@
 
         <!-- Model Bumi tanpa marker -->
         <a-entity 
+            id="planetEarth"
             gltf-model="source/earth/self made Earth.gltf"
             scale="0.5 0.5 0.5" 
             position="3 1 -3"
-            animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
+            animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true"
+            visible="false">
         </a-entity>
 
         <!-- Planet Mars -->
@@ -56,47 +58,68 @@
             <a-cursor color="black" fuse="false" />
         </a-entity>
 
+                    
+            <!-- Marker untuk Earth -->
+            <a-marker type="pattern" url="pattern-earth.patt">
+                <a-entity 
+                    gltf-model="earth.glb"
+                    scale="5 5 5"  
+                    position="0 0 0"
+                    animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
+                </a-entity>
+            </a-marker>
+
+            <!-- Marker untuk Mars -->
+            <a-marker type="pattern" url="pattern-mars.patt">
+                <a-entity 
+                    gltf-model="mars.glb"
+                    scale="5 5 5"   
+                    position="0 0 0"
+                    animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
+                </a-entity>
+            </a-marker>
+
+            <!-- Marker untuk Moon -->
+            <a-marker type="pattern" url="pattern-moon.patt">
+                <a-entity 
+                    gltf-model="moon.glb"
+                    scale="5 5 5"  
+                    position="0 0 0"
+                    animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
+                </a-entity>
+            </a-marker>
+
+
+      <!-- Marker untuk Keyboard -->
+      <a-marker type="pattern" url="pattern-keyboard.patt">
+        <a-entity 
+            gltf-model="keyboard.glb" 
+            scale="0.1 0.1 0.1" 
+            position="0 0 0">
+        </a-entity>
+    </a-marker>
+
+    <!-- Marker untuk Video -->
+    <!-- <a-marker type="pattern" url="pattern-youwin.patt">
+        <a-video 
+            src="Rick Astley - Never Gonna Give You Up (Official Music Video).mp4" 
+            position="0 0 0" 
+            rotation="-90 0 0" 
+            width="4" 
+            height="2.5">
+        </a-video>
+    </a-marker> -->
+
+
+
+
     </a-scene>
 
-    <!-- Scene untuk AR -->
-    <a-scene embedded arjs="sourceType: webcam; videoTexture: true;" vr-mode-ui="enabled: false">
-        
-        <!-- Marker untuk Earth -->
-        <a-marker type="pattern" url="pattern-earth.patt">
-            <a-entity 
-                gltf-model="source/earth/self made Earth.gltf"
-                scale="0.5 0.5 0.5"
-                animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
-            </a-entity>
-        </a-marker>
-
-        <!-- Marker untuk Mars -->
-        <a-marker type="pattern" url="pattern-mars.patt">
-            <a-entity 
-                id="planetMarsAR"
-                gltf-model="source/mars/scene.gltf"
-                scale="0.01 0.01 0.01"
-                animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
-            </a-entity>
-        </a-marker>
-
-        <!-- Marker untuk Moon -->
-        <a-marker type="pattern" url="pattern-moon.patt">
-            <a-entity 
-                id="planetMoonAR"
-                gltf-model="source/moon/scene.gltf"
-                scale="0.3 0.3 0.3"
-                animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
-            </a-entity>
-        </a-marker>
-
-        <!-- Kamera untuk AR -->
-        <a-entity camera></a-entity>
-
-    </a-scene>
+   
 
     <script>
         // Mendapatkan referensi ke planet-planet dan latar belakang VR
+        const planetEarth = document.getElementById('planetEarth');
         const planetMars = document.getElementById('planetMars');
         const planetMoon = document.getElementById('planetMoon');
         const spaceBackground = document.getElementById('spaceBackground');
@@ -104,6 +127,7 @@
         // Menambahkan event listener untuk mendeteksi mode VR
         document.querySelector('a-scene').addEventListener('enter-vr', function() {
             // Saat memasuki mode VR, tampilkan planet-planet dan latar belakang
+            planetEarth.setAttribute('visible', true);  
             planetMars.setAttribute('visible', true);
             planetMoon.setAttribute('visible', true);
             spaceBackground.setAttribute('visible', true);  // Menampilkan latar belakang
@@ -115,6 +139,7 @@
             planetMoon.setAttribute('visible', false);
             spaceBackground.setAttribute('visible', false);  // Menyembunyikan latar belakang
         });
+
     </script>
 </body>
 </html>
